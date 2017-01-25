@@ -1,0 +1,25 @@
+template: Hello, %s!
+defaultName: Stranger
+
+# Database Settings
+database:
+   # the name of your JDBC driver
+     driverClass: org.hsqldb.jdbc.JDBCDriver
+
+   # the username
+     user: sa
+
+   # the password
+     password:
+
+   # the JDBC URL
+     url: jdbc:hsqldb:hsql://localhost
+     
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 0
+  adminConnectors:
+    - type: http
+      port: 0

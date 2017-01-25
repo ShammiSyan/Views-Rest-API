@@ -1,0 +1,82 @@
+message: This is a message defined in the Realcaller configuration file named as config.yaml.
+messageRepetitions: 1
+
+template: Hello, %s!
+
+defaultName: ${DW_DEFAULT_NAME:-Stranger}
+
+# Database Settings
+database:
+   # the name of your JDBC driver
+     driverClass: org.hsqldb.jdbc.JDBCDriver
+
+   # the username
+     user: sa
+
+   # the password
+     password:
+
+   # the JDBC URL
+     url: jdbc:hsqldb:hsql://localhost
+     
+     validationQuery: SELECT * FROM INFORMATION_SCHEMA.SYSTEM_TABLES
+        
+   # any properties specific to your JDBC driver:
+     properties:
+       charSet: UTF-8
+       hibernate.dialect: org.hibernate.dialect.HSQLDialect
+
+# Logging Settings
+logging:
+  
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+  
+    # Sets the level for 'com.syan.rest' to INFO
+    com.syan.rest: INFO
+
+  # Log to console and file 
+  appenders:
+    - type: console
+    - type: file
+      threshold: INFO
+      currentLogFilename: /tmp/profile.log
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"      
+      archivedLogFilenamePattern: /tmp/profile-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: UTC
+      
+#Server Settings
+server:
+
+  applicationConnectors:
+    - type: http
+      port: 8080
+    - type: https
+      port: 8443
+      keyStorePath: example.keystore
+      keyStorePassword: example
+      validateCerts: false
+    
+  adminConnectors:
+    - type: http
+      port: 8081
+    - type: https
+      port: 8444
+      keyStorePath: example.keystore
+      keyStorePassword: example
+      validateCerts: false
+
+
+# Sundial Settings      
+sundial:
+  thread-pool-size: 10
+  shutdown-on-unload: true
+  wait-on-shutdown: false
+  start-delay-seconds: 0
+  start-scheduler-on-load: true
+  global-lock-on-load: false
+  annotated-jobs-package-name: com.syan.rest.jobs

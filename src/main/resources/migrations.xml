@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	<changeSet id="1" author="prsyan">
+		<createTable tableName="profileData">
+			<column name="profileId" type="bigint" autoIncrement="true" startWith="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="firstName" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="lastName" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="country" type="varchar(255)">
+			    <constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="2" author="prsyan">
+		<createTable tableName="profileView">
+			<column name="objectId" type="bigint" autoIncrement="true" startWith="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="userProfileId" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="viewerProfileId" type="bigint">
+				<constraints  nullable="false" />
+			</column>
+			<column name="viewDate" type="timestamp">
+				<constraints  nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+		<changeSet id="3" author="prsyan">
+		<createTable tableName="profileView_Backup">
+			<column name="objectId" type="bigint" autoIncrement="true" startWith="1">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="userProfileId" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="viewerProfileId" type="bigint">
+				<constraints  nullable="false" />
+			</column>
+			<column name="viewDate" type="timestamp">
+				<constraints  nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="4" author="prsyan">
+	    <createIndex
+	            indexName="index_profile_view"
+	            tableName="profileView"
+	            unique="false">
+	        <column name="userProfileId" type="bigint"/>
+	        <column name="viewDate" type="timestamp"/>
+	    </createIndex>
+	</changeSet>
+	<include file="triggers.xml"/>
+</databaseChangeLog>
